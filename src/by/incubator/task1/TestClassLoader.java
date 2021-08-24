@@ -5,14 +5,17 @@ import by.incubator.Main;
 public class TestClassLoader {
 
     public void writeClassLoaderForMain(Class<?> myClass){
-        System.out.println(myClass + " class loader is " + myClass.getClassLoader());
-        Class<?> parentMyClass = myClass.getSuperclass();
-        if(parentMyClass != null) {
-            System.out.println(parentMyClass + " class loader is " + parentMyClass.getClassLoader());
-            Class<?> parentsParents = parentMyClass.getSuperclass();
-            if (parentsParents != null)
-                System.out.println(parentsParents + " class loader is " + parentsParents.getClassLoader());
+        ClassLoader myClassLoader = myClass.getClassLoader();
+        System.out.println(myClass + " class loader is " + myClassLoader);
+        if(myClassLoader != null) {
+            ClassLoader parentMyClass = myClass.getClassLoader().getParent();
+            System.out.println("Parent class loader is " + parentMyClass);
+            if (parentMyClass != null) {
+                ClassLoader parentsParents = parentMyClass.getParent();
+                System.out.println("Parent's parent class loader is " + parentsParents);
+            }
         }
+
         System.out.println();
     }
 
